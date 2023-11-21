@@ -1,7 +1,7 @@
 //imports
 import React from 'react';
 import PageNotFound from './otherpages/errorPage.js';
-import Main from './otherpages/userSearch.js';
+import Main from './otherpages/mainSearch.js';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 //main app function with ROUTES
 function App() {

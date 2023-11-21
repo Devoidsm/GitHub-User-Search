@@ -1,29 +1,27 @@
 //imports
-import React from 'react';
+import React from "react";
 import styled from 'styled-components';
 import { GitInfo } from '../gitHubInfo/gitHubInfo.js';
-//Main gitRepos Function used to gather the user Repos and display their information
-const GitRepos = () => {
-    //getting repos from GitInfoProvider
-    const { repos } = React.useContext(GitInfo);
-
+//Main gitRepos Function used to gather the user Commits and display their information
+const GitCommits = () => {
+	//getting Commits from GitInfo
+	const { searchedRepo } = React.useContext(GitInfo);
+	//returning Commits
 	return (
 		<Wrapper>
-			<div className='Repos'>
-				{repos.map((repo, index) => {
-					const { name, updated_at, html_url, created_at, description,  } = repo;
-					return (
-						<article key={index}>
-							<h2>Title: {name}</h2>
-							<div>
-                                <h3>Description: {description}</h3>
-								<p>Last Committed Date: {updated_at}</p>
-								<p>Created on: {created_at}</p>
-								<a href={html_url}>Go to Repo</a>
-							</div>
-                        </article> 
-                    );
-				})}
+			<div className='Commits'>
+				<ul>
+					{searchedRepo.map((commit) => {
+						return (
+							<ul key={commit.node_id}>
+								<li>Commit Message: {commit.commit.message}</li>
+								<li>Commited by: {commit.commit.committer.name}</li>
+								<li>Commit Date: {commit.commit.committer.date}</li>
+								<br></br>
+							</ul>
+						);
+					})}
+				</ul>
 			</div>
 		</Wrapper>
 	);
@@ -35,10 +33,11 @@ const Wrapper = styled.article`
 	border-bottom-left-radius: var(--radius);
 	border-bottom-right-radius: var(--radius);
 	position: relative;
+	align-items: center;
 
 	&::before {
-		content: ' Repositories';
-		position: absolute;
+		content: 'Commits';
+		position: relative;
 		top: 0;
 		left: 0;
 		transform: translateY(-100%);
@@ -50,13 +49,16 @@ const Wrapper = styled.article`
 		padding: 0.5rem 1rem 0 1rem;
 		letter-spacing: var(--spacing);
 		font-size: 1rem;
+		text-align: center;
 	}
-	.Repos {
+	.Commits {
 		overflow: scroll;
+		align-items: center;
 		height: 380px;
 		grid-template-rows: repeat(auto-fill, minmax(45px, 1fr));
 		gap: 3rem 3rem;
 		padding: 1rem 2rem;
+		text-align: center;
 	}
 	article {
 		transition: var(--transition);
@@ -64,6 +66,7 @@ const Wrapper = styled.article`
 		border-radius: var(--radius);
 		grid-template-columns: auto 3fr;
 		align-items: center;
+		text-align: center;
 		column-gap: 1rem;
 		img {
 			height: 100%;
@@ -90,5 +93,5 @@ const Wrapper = styled.article`
 		}
 	}
 `;
-//Exporting gitRepos
-export default GitRepos;
+//Exporting GitCommits
+export default GitCommits;

@@ -1,26 +1,29 @@
 //imports
-import React from "react";
+import React from 'react';
 import styled from 'styled-components';
 import { GitInfo } from '../gitHubInfo/gitHubInfo.js';
-//Main gitRepos Function used to gather the user Commits and display their information
-const GitCommits = () => {
-	//getting Commits from GitInfo
-	const { commits, repos } = React.useContext(GitInfo);
-	//returning Commits
+//Main gitRepos Function used to gather the user Repos and display their information
+const GitRepos = () => {
+    //getting repos from GitInfoProvider
+    const { repos } = React.useContext(GitInfo);
+
 	return (
 		<Wrapper>
-			<div className='Commits'>
-				<ul>
-					{commits.map((commit) => {
-						return (
-							<ul key={commit.node_id}>
-								<li>- Commit: {commit.commit.message}</li>
-								<li>- Commited by: {commit.commit.committer.name}</li>
-								<br></br>
-							</ul>
-						);
-					})}
-				</ul>
+			<div className='Repos'>
+				{repos.map((repo, index) => {
+					const { name, updated_at, html_url, created_at, description,  } = repo;
+					return (
+						<article key={index}>
+							<h3>Title: {name}</h3>
+							<div>
+                                <h4>Description: {description}</h4>
+								<p>Last Committed Date: {updated_at}</p>
+								<p>Created on: {created_at}</p>
+								<a href={html_url}>Go to Repo</a>
+							</div>
+                        </article> 
+                    );
+				})}
 			</div>
 		</Wrapper>
 	);
@@ -34,7 +37,7 @@ const Wrapper = styled.article`
 	position: relative;
 
 	&::before {
-		content: 'Commits';
+		content: ' Repositories';
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -48,7 +51,7 @@ const Wrapper = styled.article`
 		letter-spacing: var(--spacing);
 		font-size: 1rem;
 	}
-	.Commits {
+	.Repos {
 		overflow: scroll;
 		height: 380px;
 		grid-template-rows: repeat(auto-fill, minmax(45px, 1fr));
@@ -68,8 +71,11 @@ const Wrapper = styled.article`
 			border-radius: 50%;
 			object-fit: cover;
 		}
+		h3 {
+			margin-bottom: 10;
+		}
 		h4 {
-			margin-bottom: 0;
+			margin-bottom: 10;
 		}
 		a {
 			color: var(--clr-primary-5);
@@ -87,5 +93,5 @@ const Wrapper = styled.article`
 		}
 	}
 `;
-//Exporting GitCommits
-export default GitCommits;
+//Exporting gitRepos
+export default GitRepos;

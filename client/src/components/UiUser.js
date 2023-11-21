@@ -3,20 +3,18 @@ import React from 'react';
 import styled from 'styled-components';
 import Profile from './Profile.js';
 import GitRepos from "./gitRepos.js";
-import GitCommits from "./gitCommits.js";
-
-const UI = () => {
+//Main Ui User function for the user info display
+const UiUser = () => {
 	return (
 		<section className='section'>
 			<Wrapper className='section-center'>
 				<Profile></Profile>
 				<GitRepos></GitRepos>
-				<GitCommits></GitCommits>
 			</Wrapper>
 		</section>	
 	);
 };
-
+//Custom CSS styling
 const Wrapper = styled.div`
 	padding-top: 2rem;
 	display: grid;
@@ -26,5 +24,5 @@ const Wrapper = styled.div`
 	}
 	/* align-items: start; */
 `;
-
-export default UI;
+//export default
+export default UiUser;
